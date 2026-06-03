@@ -138,6 +138,40 @@
   }
   .dow{font-size:12px;color:var(--muted);letter-spacing:.1em}
 
+  /* ---------- countdown ---------- */
+  .countdown{
+    margin:26px auto 0;text-align:center;
+    animation:rise 1.1s .55s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .cd-lead{
+    display:block;font-family:"Marcellus",serif;
+    font-size:12px;letter-spacing:.34em;color:var(--brass-bright);
+    margin-bottom:14px;padding-left:.34em;
+  }
+  .cd-grid{
+    display:inline-flex;align-items:flex-start;gap:10px;
+    padding:16px 24px;border:1px solid var(--line);border-radius:16px;
+    background:linear-gradient(160deg,var(--panel-soft),transparent);
+    backdrop-filter:blur(6px);
+  }
+  .cd-unit{display:flex;flex-direction:column;align-items:center;min-width:50px}
+  .cd-num{
+    font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(34px,9vw,46px);line-height:1;color:var(--cream);
+    font-variant-numeric:tabular-nums;
+  }
+  .cd-lbl{font-size:11px;letter-spacing:.14em;color:var(--muted);margin-top:7px}
+  .cd-sep{
+    font-family:"Cormorant Garamond",serif;
+    font-size:clamp(28px,7vw,40px);line-height:1;color:var(--brass);opacity:.6;
+    padding-top:2px;
+  }
+  .countdown.done .cd-grid{flex-direction:column;gap:4px;padding:20px 30px}
+  .cd-msg{
+    font-family:"Shippori Mincho B1",serif;font-size:18px;
+    letter-spacing:.12em;color:var(--brass-bright);
+  }
+
   /* ---------- sections ---------- */
   section{padding:54px 0;position:relative}
   .sec-head{display:flex;align-items:center;gap:16px;margin-bottom:30px}
@@ -367,6 +401,19 @@
           <div class="mo">OCT.&nbsp;<span class="dow">日</span></div>
         </div>
       </div>
+
+      <div class="countdown" id="countdown" aria-live="polite">
+        <span class="cd-lead">開催まで</span>
+        <div class="cd-grid">
+          <div class="cd-unit"><span class="cd-num" id="cd-days">--</span><span class="cd-lbl">日</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" id="cd-hours">--</span><span class="cd-lbl">時間</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-lbl">分</span></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-lbl">秒</span></div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -530,6 +577,38 @@
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
     },{threshold:.14});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ---- countdown to 2026/10/24 ----
+    (function(){
+      const target = new Date(2026, 9, 24, 0, 0, 0); // 月は0始まり → 9 = 10月
+      const box = document.getElementById('countdown');
+      const dEl = document.getElementById('cd-days');
+      const hEl = document.getElementById('cd-hours');
+      const mEl = document.getElementById('cd-mins');
+      const sEl = document.getElementById('cd-secs');
+      const z = n => String(n).padStart(2,'0');
+      function tick(){
+        const diff = target - new Date();
+        if(diff <= 0){
+          box.classList.add('done');
+          box.querySelector('.cd-lead').textContent = '';
+          box.querySelector('.cd-grid').innerHTML =
+            '<span class="cd-msg">いよいよ開催です！</span>';
+          clearInterval(timer);
+          return;
+        }
+        const d = Math.floor(diff/86400000);
+        const h = Math.floor(diff%86400000/3600000);
+        const m = Math.floor(diff%3600000/60000);
+        const s = Math.floor(diff%60000/1000);
+        dEl.textContent = d;
+        hEl.textContent = z(h);
+        mEl.textContent = z(m);
+        sEl.textContent = z(s);
+      }
+      tick();
+      const timer = setInterval(tick, 1000);
+    })();
   </script>
 </body>
 </html>
