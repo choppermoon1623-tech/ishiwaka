@@ -29,6 +29,11 @@
 
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
+  ::selection{background:rgba(201,163,90,.35);color:#fff}
+  ::-webkit-scrollbar{width:10px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:rgba(201,163,90,.35);border-radius:99px;border:2px solid var(--bg)}
+  ::-webkit-scrollbar-thumb:hover{background:rgba(201,163,90,.55)}
   body{
     font-family:"Zen Kaku Gothic New",sans-serif;
     background:var(--bg);
@@ -183,12 +188,27 @@
     font-family:"Shippori Mincho B1",serif;font-weight:600;
     font-size:22px;letter-spacing:.08em;color:var(--cream);
   }
-  .sec-head .ln{flex:1;height:1px;background:var(--line)}
+  .sec-head .ln{
+    flex:1;height:1px;position:relative;
+    background:linear-gradient(90deg,var(--line),rgba(201,163,90,.08));
+  }
+  .sec-head .ln::after{
+    content:"";position:absolute;right:0;top:50%;width:5px;height:5px;
+    border:1px solid var(--brass);opacity:.6;
+    transform:translateY(-50%) rotate(45deg);
+  }
 
   .card{
+    position:relative;overflow:hidden;
     border:1px solid var(--line);border-radius:16px;
-    background:var(--panel-soft);
+    background:linear-gradient(170deg,var(--panel-soft),rgba(255,255,255,.015));
+    backdrop-filter:blur(6px);
     padding:26px 26px;margin-bottom:16px;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:8%;right:8%;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(230,201,138,.45),transparent);
+    pointer-events:none;
   }
   .row{
     display:flex;gap:18px;padding:16px 0;
@@ -212,6 +232,17 @@
     padding:28px 20px;text-align:center;position:relative;overflow:hidden;
     background:linear-gradient(165deg,var(--panel),var(--bg-2));
     transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s;
+  }
+  .fee::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:70%;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(230,201,138,.5),transparent);
+  }
+  .fee::after{
+    content:"";position:absolute;top:-46px;left:50%;transform:translateX(-50%);
+    width:150px;height:90px;border-radius:50%;
+    background:radial-gradient(closest-side,rgba(201,163,90,.14),transparent);
+    pointer-events:none;
   }
   .fee:hover{transform:translateY(-4px);border-color:var(--brass)}
   .fee .tag{
@@ -305,21 +336,60 @@
   .pending-note{margin-top:16px;font-size:13px;color:var(--muted-2);letter-spacing:.04em}
 
   /* ---------- attendees ---------- */
-  .attendees{
-    border:1px dashed var(--line);border-radius:16px;
-    padding:34px 26px;text-align:center;background:var(--panel-soft);
+  .att-card-outer{padding:28px 26px 24px}
+  .att-status{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:14px;padding-bottom:18px;margin-bottom:20px;
+    border-bottom:1px solid var(--line);
   }
-  .attendees .ico{font-family:"Cormorant Garamond",serif;font-size:40px;color:var(--brass);opacity:.7}
-  .attendees p{color:var(--muted);font-size:15px;margin-top:8px}
-  /* 出席者が固まったら下記 .att-grid を表示してください */
+  .att-date{
+    font-family:"Shippori Mincho B1",serif;font-size:12.5px;
+    letter-spacing:.2em;color:var(--muted);
+  }
+  .att-count{
+    font-family:"Cormorant Garamond",serif;color:var(--brass-bright);
+    display:inline-flex;align-items:baseline;gap:5px;
+  }
+  .att-count em{font-style:normal;font-weight:600;font-size:34px;line-height:1;color:var(--cream)}
+  .att-count small{
+    font-family:"Shippori Mincho B1",serif;font-size:12px;
+    letter-spacing:.14em;color:var(--brass-bright);
+  }
   .att-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
-    gap:10px;margin-top:8px;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:12px;
   }
-  .att-grid span{
-    border:1px solid var(--line);border-radius:10px;padding:10px 8px;
-    font-family:"Shippori Mincho B1",serif;font-size:15px;color:var(--cream);
-    background:var(--panel-soft);
+  .att-name{
+    position:relative;text-align:center;
+    border:1px solid var(--line);border-radius:12px;
+    padding:16px 10px 15px;
+    font-family:"Shippori Mincho B1",serif;font-weight:500;
+    font-size:15.5px;letter-spacing:.1em;color:var(--cream);
+    background:linear-gradient(165deg,var(--panel-soft),transparent);
+    transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,background .35s;
+  }
+  .att-name:hover{transform:translateY(-3px);border-color:rgba(201,163,90,.5)}
+  .att-orn{
+    display:block;font-family:"Cormorant Garamond",serif;
+    font-size:13px;line-height:1;color:var(--brass);opacity:.75;
+    margin-bottom:8px;
+  }
+  .att-note{
+    margin-top:20px;text-align:center;
+    font-size:12.5px;letter-spacing:.06em;color:var(--muted-2);
+  }
+  .reveal .att-name{opacity:0}
+  .reveal.in .att-name{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  .reveal.in .att-name:nth-child(1){animation-delay:.05s}
+  .reveal.in .att-name:nth-child(2){animation-delay:.13s}
+  .reveal.in .att-name:nth-child(3){animation-delay:.21s}
+  .reveal.in .att-name:nth-child(4){animation-delay:.29s}
+  .reveal.in .att-name:nth-child(5){animation-delay:.37s}
+  .reveal.in .att-name:nth-child(6){animation-delay:.45s}
+  .reveal.in .att-name:nth-child(7){animation-delay:.53s}
+  @media(max-width:560px){
+    .att-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+    .att-name{font-size:14px;padding:14px 6px 13px}
   }
 
   /* ---------- gift (subtle) ---------- */
@@ -350,7 +420,12 @@
   /* ---------- footer ---------- */
   footer{
     text-align:center;padding:56px 0 70px;position:relative;z-index:2;
-    border-top:1px solid var(--line);margin-top:30px;
+    margin-top:30px;
+  }
+  footer::before{
+    content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:min(420px,80%);height:1px;
+    background:linear-gradient(90deg,transparent,rgba(201,163,90,.4),transparent);
   }
   footer .ft-clef{font-family:"Cormorant Garamond",serif;font-size:34px;color:var(--brass);opacity:.8}
   footer .ft-title{font-family:"Shippori Mincho B1",serif;letter-spacing:.16em;margin-top:10px;color:var(--cream)}
@@ -535,21 +610,24 @@
         <span class="ln"></span>
       </div>
 
-      <!-- ▼ 確定前の表示 ▼ -->
-      <div class="attendees">
-        <div class="ico">&#9834;</div>
-        <p>ご出席者が確定しましたら、<br>こちらでお知らせいたします。</p>
-      </div>
-
-      <!--  ▼ 出席者が固まったら、上の .attendees を消してこちらを使ってください ▼
-      <div class="card">
-        <div class="att-grid">
-          <span>○○ ○○</span>
-          <span>△△ △△</span>
-          <span>□□ □□</span>
+      <div class="card att-card-outer">
+        <div class="att-status">
+          <span class="att-date">令和8年8月12日現在</span>
+          <span class="att-count"><em>7</em><small>名</small></span>
         </div>
+
+        <div class="att-grid">
+          <div class="att-name"><span class="att-orn">&#9834;</span>工藤　隆史</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>高橋　一寿</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>三浦　博史</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>小西　佳伸</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>小美浪　孝昭</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>小泉　裕二</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>鷹松　直樹</div>
+        </div>
+
+        <div class="att-note">お申し込みいただいた方から、順次こちらでご紹介してまいります。</div>
       </div>
-      -->
     </section>
 
   </div>
