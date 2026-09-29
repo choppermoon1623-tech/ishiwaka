@@ -374,6 +374,20 @@
     font-size:13px;line-height:1;color:var(--brass);opacity:.75;
     margin-bottom:8px;
   }
+  .att-stay{
+    display:inline-block;margin-top:9px;padding:2px 11px;
+    border-radius:99px;font-family:"Zen Kaku Gothic New",sans-serif;
+    font-size:11px;font-weight:500;letter-spacing:.14em;line-height:1.7;
+  }
+  .att-stay.stay{background:rgba(201,163,90,.18);color:var(--brass-bright);border:1px solid rgba(201,163,90,.45)}
+  .att-stay.day{background:transparent;color:var(--muted);border:1px solid rgba(166,188,177,.35)}
+  .att-stay.maybe{background:rgba(201,163,90,.08);color:var(--brass-bright);border:1px dashed rgba(201,163,90,.5)}
+  .att-stay-sub{display:block;margin-top:4px;font-size:10.5px;letter-spacing:.04em;color:var(--muted-2);font-family:"Zen Kaku Gothic New",sans-serif}
+  .att-summary{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;
+    margin:-6px 0 20px;font-size:12.5px;letter-spacing:.08em;color:var(--muted);
+  }
+  .att-summary .att-stay{margin-top:0;margin-right:6px}
   .att-note{
     margin-top:20px;text-align:center;
     font-size:12.5px;letter-spacing:.06em;color:var(--muted-2);
@@ -389,6 +403,9 @@
   .reveal.in .att-name:nth-child(7){animation-delay:.53s}
   .reveal.in .att-name:nth-child(8){animation-delay:.61s}
   .reveal.in .att-name:nth-child(9){animation-delay:.69s}
+  .reveal.in .att-name:nth-child(10){animation-delay:.77s}
+  .reveal.in .att-name:nth-child(11){animation-delay:.85s}
+  .reveal.in .att-name:nth-child(12){animation-delay:.93s}
   @media(max-width:560px){
     .att-grid{grid-template-columns:repeat(2,1fr);gap:10px}
     .att-name{font-size:14px;padding:14px 6px 13px}
@@ -614,22 +631,28 @@
 
       <div class="card att-card-outer">
         <div class="att-status">
-          <span class="att-date">令和8年9月26日現在</span>
-          <span class="att-count"><em>11</em><small>名</small></span>
+          <span class="att-date">令和8年9月29日現在</span>
+          <span class="att-count"><em>12</em><small>名</small></span>
+        </div>
+
+        <div class="att-summary">
+          <span><span class="att-stay stay">宿泊</span>9名（うち1名未定）</span>
+          <span><span class="att-stay day">日帰り</span>3名</span>
         </div>
 
         <div class="att-grid">
-          <div class="att-name"><span class="att-orn">&#9834;</span>工藤　隆史</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>高橋　一寿</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>三浦　博史</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>小西　佳伸</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>小美浪　孝昭</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>小泉　裕二</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>鷹松　直樹</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>秋丸　嘉弘</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>堅田　華奈子</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>笹渕　啓史</div>
-          <div class="att-name"><span class="att-orn">&#9834;</span>村上　和人</div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>工藤　隆史<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>高橋　一寿<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>三浦　博史<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>小西　佳伸<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>小美浪　孝昭<br><span class="att-stay day">日帰り</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>小泉　裕二<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>鷹松　直樹<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>秋丸　嘉弘<br><span class="att-stay maybe">宿泊予定</span><span class="att-stay-sub">※お仕事次第で日帰り</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>堅田　華奈子<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>笹渕　啓史<br><span class="att-stay stay">宿泊</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>村上　和人<br><span class="att-stay day">日帰り</span></div>
+          <div class="att-name"><span class="att-orn">&#9834;</span>清野　俊幸<br><span class="att-stay day">日帰り</span></div>
         </div>
 
         <div class="att-note">お申し込みいただいた方から、順次こちらでご紹介してまいります。</div>
