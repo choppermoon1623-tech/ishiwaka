@@ -223,6 +223,14 @@
     min-width:74px;flex-shrink:0;
   }
   .val{font-size:16px;color:var(--cream)}
+  .tl{display:flex;align-items:baseline;gap:10px;line-height:2}
+  .tl-d{flex:0 0 5.6em;font-size:13px;color:var(--muted);letter-spacing:.04em}
+  .tl-t{flex:0 0 4.8em;font-family:"Cormorant Garamond",serif;font-weight:600;font-size:18px;color:var(--brass-bright)}
+  @media(max-width:560px){
+    .tl{gap:8px;font-size:14.5px}
+    .tl-d{flex-basis:5.2em;font-size:12px}
+    .tl-t{flex-basis:4.4em;font-size:16px}
+  }
   .val small{display:block;color:var(--muted);font-size:13px;margin-top:3px;letter-spacing:.04em}
 
   /* ---------- fee ---------- */
@@ -524,6 +532,14 @@
         <div class="row">
           <span class="label">日　程</span>
           <span class="val">令和8年10月24日（土）〜 25日（日）<small>1泊2日</small></span>
+        </div>
+        <div class="row">
+          <span class="label">時　間</span>
+          <span class="val">
+            <span class="tl"><span class="tl-d">24日（土）</span><span class="tl-t">15:00〜</span>チェックイン</span>
+            <span class="tl"><span class="tl-d"></span><span class="tl-t">18:00頃〜</span>宴 開始</span>
+            <span class="tl"><span class="tl-d">25日（日）</span><span class="tl-t">10:00</span>チェックアウト（予定）</span>
+          </span>
         </div>
         <div class="row">
           <span class="label">会　場</span>
